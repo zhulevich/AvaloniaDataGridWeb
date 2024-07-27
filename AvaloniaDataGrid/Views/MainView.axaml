@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaDataGrid.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaDataGrid.Views.MainView"
+             xmlns:spreadalonia="clr-namespace:Spreadalonia;assembly=Spreadalonia"
+             x:DataType="vm:MainWindowViewModel">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<TabControl x:Name="tabControl">
+		<TabItem Header="Все элементы">
+			<StackPanel Margin="20">
+				<Button Content="Нажмите, что бы создать таблицу"
+						Margin="0,10,0,0"
+						Command="{Binding ButtonClick}"/>
+				<DataGrid ItemsSource="{Binding People}"
+						  GridLinesVisibility="All"
+						  BorderThickness="1" BorderBrush="Gray">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Substance" Binding="{Binding Substance}"/>
+						<DataGridCheckBoxColumn Header="Choose" Binding="{Binding IsChoosen}" />
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Таблица">
+			<spreadalonia:Spreadsheet
+				CurrentData="{Binding TableDataSpread}"
+				MaxColumnCount="{Binding MaxColumnCount}"
+				MaxRowCount="{Binding MaxRowCount}">
+			</spreadalonia:Spreadsheet>
+		</TabItem>
+	</TabControl>
+</UserControl>
